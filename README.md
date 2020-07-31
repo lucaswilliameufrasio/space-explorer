@@ -1,3 +1,15 @@
+# Stack
+
+* React
+* Typescript
+* NodeJS
+* GraphQL
+  * Apollo
+* Sequelize
+  * Postgres
+* Circle CI
+
+
 # Queries
 
 ```
