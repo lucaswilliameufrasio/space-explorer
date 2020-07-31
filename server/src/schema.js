@@ -19,7 +19,9 @@ const typeDefs = gql`
   type Mutation {
     bookTrips(launchIds: [ID]!): TripUpdateResponse!
     cancelTrip(launchId: ID!): TripUpdateResponse!
-    login(email: String): String # login token
+    login(email: String): User!
+    # for use with the iOS tutorial
+    uploadProfileImage(file: Upload!): User
   }
 
   type TripUpdateResponse {
@@ -56,9 +58,11 @@ const typeDefs = gql`
   type User {
     id: ID!
     email: String!
-    trips: [Launch]
+    profileImage: String
+    trips: [Launch]!
+    token: String
   }
-  
+
   type Mission {
     name: String
     missionPatch(size: PatchSize): String
