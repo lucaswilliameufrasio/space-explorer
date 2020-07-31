@@ -64,6 +64,9 @@ module.exports = {
         return user;
       }
     },
+    
+    uploadProfileImage: async (_, { file }, { dataSources }) =>
+      dataSources.userAPI.uploadProfileImage({ file }),
 
     bookTrips: async (_, { launchIds }, { dataSources }) => {
       const results = await dataSources.userAPI.bookTrips({ launchIds });
