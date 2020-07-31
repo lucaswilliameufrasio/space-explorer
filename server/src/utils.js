@@ -35,9 +35,8 @@ module.exports.createStore = () => {
     $in: Op.in,
   };
 
-  const db = new SQL('database', 'username', 'password', {
-    dialect: 'sqlite',
-    storage: path.resolve(__dirname, '..', 'store.sqlite'),
+  const db = new SQL('spacetrip', 'postgres', 'iamcatholic', {
+    dialect: 'postgres',
     operatorsAliases,
     logging: false,
   });
