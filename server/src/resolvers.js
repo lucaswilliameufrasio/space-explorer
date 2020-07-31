@@ -61,14 +61,14 @@ module.exports = {
       if (user) return Buffer.from(email).toString("base64");
     },
 
-    bookTrips: async (_, { launchsIds }, { dataSources }) => {
-      const results = await dataSources.userAPI.bookTrips({ launchsIds });
+    bookTrips: async (_, { launchIds }, { dataSources }) => {
+      const results = await dataSources.userAPI.bookTrips({ launchIds });
       const launches = await dataSources.launchAPI.getLaunchesByIds({
         launchIds,
       });
 
       return {
-        success: results && results.length === launchesIds.length,
+        success: results && results.length === launchIds.length,
         message:
           results.length === launchIds.length
             ? "trips booked successfully"
@@ -89,7 +89,7 @@ module.exports = {
         };
 
       const launch = await dataSources.launchAPI.getLaunchById({ launchId });
-      
+
       return {
         success: true,
         message: "trip canceled",
