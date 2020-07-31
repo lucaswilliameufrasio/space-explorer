@@ -55,3 +55,29 @@ query GetLaunches {
   }
 }
 ```
+
+```
+mutation LoginUser {
+  login(email: "lucaswilliam@gmail.com")
+}
+```
+
+### You need to add authorization header to access this operation
+
+```
+mutation BookTrips {
+  bookTrips(launchIds: [67, 68, 69]) {
+    success
+    message
+    launches {
+      id
+    }
+  }
+}
+```
+
+```
+{
+  "authorization": "bHVjYXN3aWxsaWFtQGdtYWlsLmNvbQ=="
+}
+```
