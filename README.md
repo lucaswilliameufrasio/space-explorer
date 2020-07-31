@@ -68,9 +68,21 @@ query GetLaunches {
 }
 ```
 
+
+### Add this query variable to execute the Login operation
 ```
-mutation LoginUser {
-  login(email: "lucaswilliam@gmail.com")
+{
+  "email": "lucaswilliam@gmail.com"
+}
+```
+
+```
+mutation Login($email: String!) {
+  login(email: $email) {
+    id
+    token
+    email
+  }
 }
 ```
 
