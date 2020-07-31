@@ -66,7 +66,8 @@ CREATE TABLE public.users (
     "createdAt" date NOT NULL,
     "updatedAt" date NOT NULL,
     email text NOT NULL,
-    token text
+    token text,
+    "profileImage" text
 );
 
 
@@ -120,9 +121,9 @@ COPY public.trips (id, "createdAt", "updatedAt", "launchId", "userId") FROM stdi
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.users (id, "createdAt", "updatedAt", email, token) FROM stdin;
-4	2020-07-31	2020-07-31	lucaswilliam@gmail.com	\N
-5	2020-07-31	2020-07-31	lucaswilliameufrasio@gmail.com	\N
+COPY public.users (id, "createdAt", "updatedAt", email, token, "profileImage") FROM stdin;
+4	2020-07-31	2020-07-31	lucaswilliam@gmail.com	\N	\N
+5	2020-07-31	2020-07-31	lucaswilliameufrasio@gmail.com	\N	\N
 \.
 
 
