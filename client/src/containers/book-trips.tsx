@@ -1,11 +1,10 @@
-import React from "react"; // preserve-line
-import { useMutation } from "@apollo/client"; // preserve-line
-import gql from "graphql-tag";
+import React from 'react';
+import { gql, useMutation } from '@apollo/client';
 
-import Button from "../components/button"; // preserve-line
-import { GET_LAUNCH } from "./cart-item"; // preserve-line
-import * as GetCartItemsTypes from "../pages/__generated__/GetCartItems";
-import * as BookTripsTypes from "./__generated__/BookTrips";
+import Button from '../components/button';
+import { cartItemsVar } from '../cache';
+import * as GetCartItemsTypes from '../pages/__generated__/GetCartItems';
+import * as BookTripsTypes from './__generated__/BookTrips';
 
 export const BOOK_TRIPS = gql`
   mutation BookTrips($launchIds: [ID]!) {
@@ -23,34 +22,29 @@ export const BOOK_TRIPS = gql`
 interface BookTripsProps extends GetCartItemsTypes.GetCartItems {}
 
 const BookTrips: React.FC<BookTripsProps> = ({ cartItems }) => {
-  const GET_CART_ITEMS = gql`
-    query IsUserLoggedIn {
-      isLoggedIn @client
-    }
-  `;
-
   const [bookTrips, { data }] = useMutation<
     BookTripsTypes.BookTrips,
     BookTripsTypes.BookTripsVariables
-  >(BOOK_TRIPS, {
-    variables: { launchIds: cartItems },
-    refetchQueries: cartItems.map((launchId) => ({
-      query: GET_LAUNCH,
-      variables: { launchId },
-    })),
-
-    update(cache) {
-      cache.writeQuery({ query: GET_CART_ITEMS, data: { cartItems: [] } });
-    },
-  });
-
-  return data && data.bookTrips && !data.bookTrips.success ? (
-    <p data-testid="message">{data.bookTrips.message}</p>
-  ) : (
-    <Button onClick={() => bookTrips()} data-testid="book-button">
-      Book All
-    </Button>
+  >(
+    BOOK_TRIPS,
+    {
+      variables: { launchIds: cartItems },
+    }
   );
-};
+
+  return data && data.bookTrips && !data.bookTrips.success
+    ? <p data-testid="message">{data.bookTrips.message}</p>
+    : (
+      <Button
+        onClick={async () => {
+          await bookTrips();
+          cartItemsVar([]);
+        }}
+        data-testid="book-button"
+      >
+        Book All
+      </Button>
+    );
+}
 
 export default BookTrips;
